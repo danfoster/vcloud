@@ -1,5 +1,12 @@
 import click
+import logging
 
-@click.command()
+from .commands import instances
+
+logger = logging.getLogger(__name__)
+
+@click.group()
 def main():
-    print("Hello, world")
+    pass
+
+main.add_command(instances.instances)

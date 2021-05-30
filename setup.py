@@ -16,7 +16,9 @@ setup(
         "Topic :: Utilities",
     ],
     install_requires=[
-        "click"
+        "click",
+        "libvirt-python",
+        "tabulate",
     ],
     entry_points = {
         'console_scripts': [
