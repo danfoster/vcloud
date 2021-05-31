@@ -5,6 +5,13 @@ from .instance import Instance
 
 logger = logging.getLogger(__name__)
 
+
+def get_hosts():
+    """
+    Gets a list of defined hosts from config
+    """
+    pass
+
 class Host:
 
     def __init__(self, uri):
