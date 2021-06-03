@@ -60,7 +60,8 @@ class Config:
         try:
             hosts = self.get("hosts")
         except KeyError:
-            
+            logger.warning("No hosts defined")
+            hosts = {}
 
         if active_host not in hosts:
             logger.error(f"No host named \"{active_host}\" found in the configuration")
