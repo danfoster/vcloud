@@ -19,6 +19,7 @@ setup(
         "click",
         "libvirt-python",
         "tabulate",
+        "pyyaml",
     ],
     entry_points = {
         'console_scripts': [

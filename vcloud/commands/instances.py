@@ -15,6 +15,9 @@ def instances():
 def list(ctx):
     """
     """
-    host = Host("qemu+ssh://zem@10.42.2.100/system")
+    config = ctx.obj['config']
+    config.validate()
+    host = config.get_active_host()
     instances = host.get_instances()
+    logger.info("Instances on: %s", host.name)
     outputters.table([ x.dump() for x in instances])
