@@ -2,6 +2,7 @@ import click
 import logging
 
 from .commands import instances
+from .commands import hosts
 from .config import Config
 
 logger = logging.getLogger(__name__)
@@ -13,3 +14,4 @@ def main(ctx):
     ctx.obj['config'] = Config()
 
 main.add_command(instances.instances)
+main.add_command(hosts.hosts)

@@ -4,6 +4,8 @@ import pathlib
 import logging
 import sys
 
+from .host import Host
+
 logger = logging.getLogger(__name__)
 
 class Config:
@@ -11,6 +13,7 @@ class Config:
     def __init__(self):
         self.filename = os.path.expanduser("~/.config/vcloud/vcloud.conf")
         self.load(self.filename)
+        self.set_defaults()
         
     def __del__(self):
         self.save(self.filename)
@@ -47,6 +50,44 @@ class Config:
     def set(self, key, value):
         self.config[key] = value
 
+    def get_hosts(self):
+        """
+        Gets a list of defined hosts
+        """
+        hosts = []
+        for h in self.get("hosts"):
+            hosts.append(Host(h['name'], h['uri']))
+        return hosts
+
+    def add_host(self, name, uri):
+        """
+        Adds a new host to the config
+        """
+        hosts = self.get("hosts")
+        existing_names = [ x["name"] for x in hosts ]
+        if name in existing_names:
+            logger.error("%s already exists", name)
+            sys.exit(1)
+
+        self.config['hosts'].append({
+            "name": name,
+            "uri": uri
+        })
+
+    def get_active_host(self):
+        hosts = self.get_hosts()
+        activehostname = self.get("active_host")
+        for host in hosts:
+            if host.name == activehostname:
+                return host
+
+    def set_defaults(self):
+        try:
+            self.get("hosts")
+        except KeyError:
+            logger.warning("No hosts defined")
+            self.set("hosts", [])
+
     def validate(self):
         """
         Checks the current config is valid and sets any sensible defaults
@@ -57,12 +98,8 @@ class Config:
             logger.error("No active host set, set with: vcloud host set")
             sys.exit(1)
 
-        try:
-            hosts = self.get("hosts")
-        except KeyError:
-            logger.warning("No hosts defined")
-            hosts = {}
-
-        if active_host not in hosts:
+  
+        host_names =  [ x["name"] for x in self.get("hosts") ]
+        if active_host not in host_names:
             logger.error(f"No host named \"{active_host}\" found in the configuration")
             sys.exit(1)

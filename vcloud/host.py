@@ -6,15 +6,11 @@ from .instance import Instance
 logger = logging.getLogger(__name__)
 
 
-def get_hosts():
-    """
-    Gets a list of defined hosts from config
-    """
-    pass
 
 class Host:
 
-    def __init__(self, uri):
+    def __init__(self, name, uri):
+        self.name = name
         self.uri = uri
         self.conn = libvirt.open(self.uri)
 
@@ -30,4 +26,10 @@ class Host:
             instances.append(Instance(domain))
 
         return instances
+
+    def dump(self):
+        return {
+            "name": self.name,
+            "uri": self.uri,
+        }
         
