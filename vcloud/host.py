@@ -14,18 +14,40 @@ class Host:
         self.uri = uri
         self.conn = libvirt.open(self.uri)
 
-    def get_instances(self):
+    def _build_instance_dict(self):
+        """
+        Builds a dict of instances in k/v of "name": "Instance"
+        """
         domains = self.conn.listAllDomains()
         if domains == None:
             logger.error("Failed to get a list of VMs")
             return []
         
     
-        instances = [] 
+        instances = {}
         for domain in domains:
-            instances.append(Instance(domain))
-
+            instance = Instance(domain)
+            instances[instance.name] = instance
+        
         return instances
+
+
+    def get_instances(self):
+        """
+        Returns a list of all instances
+        """
+        return self._build_instance_dict().values()
+
+    def get_instance(self, name):
+        """
+        Returns a single instance matching the name
+        """
+        instances = self._build_instance_dict()
+        try:
+            return instances[name]
+        except KeyError:
+            logger.error("No instance named %s found", name)
+            return None
 
     def dump(self):
         return {

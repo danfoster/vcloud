@@ -1,3 +1,6 @@
+"""
+CLI sub-commands under the "instances" command
+"""
 import click
 import logging
 
@@ -14,6 +17,7 @@ def instances():
 @click.pass_context
 def list(ctx):
     """
+    Lists all instances against the current active host
     """
     config = ctx.obj['config']
     config.validate()
@@ -21,3 +25,19 @@ def list(ctx):
     instances = host.get_instances()
     logger.info("Instances on: %s", host.name)
     outputters.table([ x.dump() for x in instances])
+
+@instances.command()
+@click.pass_context
+@click.argument('instance_name')
+def start(ctx, instance_name):
+    """
+    Starts an instance
+    """
+    config = ctx.obj['config']
+    config.validate()
+    host = config.get_active_host()
+    instance = host.get_instance(instance_name)
+    if instance is None:
+        # No instance found by that name
+        return False
+    print(instance.dump())
