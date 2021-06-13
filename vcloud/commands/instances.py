@@ -40,4 +40,21 @@ def start(ctx, instance_name):
     if instance is None:
         # No instance found by that name
         return False
-    print(instance.dump())
+    instance.start()
+
+
+@instances.command()
+@click.pass_context
+@click.argument('instance_name')
+def stop(ctx, instance_name):
+    """
+    Stops an instance
+    """
+    config = ctx.obj['config']
+    config.validate()
+    host = config.get_active_host()
+    instance = host.get_instance(instance_name)
+    if instance is None:
+        # No instance found by that name
+        return False
+    instance.stop()

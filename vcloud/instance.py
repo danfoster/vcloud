@@ -37,6 +37,19 @@ class Instance:
     def cpus(self):
         return self.domain.vcpusFlags()
 
+
+    def start(self):
+        """
+        Starts an instance
+        """
+        self.domain.create()
+
+    def stop(self):
+        """
+        Stops and instance
+        """
+        self.domain.shutdown()
+
     def dump(self):
         return {
             "Name": self.name,
