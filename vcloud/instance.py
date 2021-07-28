@@ -42,13 +42,21 @@ class Instance:
         """
         Starts an instance
         """
-        self.domain.create()
+        print(f"Starting {self.name}...")
+        try:
+            self.domain.create()
+        except libvirt.libvirtError as error:
+            print(error)
 
     def stop(self):
         """
         Stops and instance
         """
-        self.domain.shutdown()
+        print(f"Stopping {self.name}...")
+        try:
+            self.domain.shutdown()
+        except libvirt.libvirtError as error:
+            print(error)
 
     def dump(self):
         return {
