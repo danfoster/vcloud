@@ -14,7 +14,7 @@ def monkeysession(request):
     yield mpatch
 
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="class")
 def config_file(request, tmp_path_factory, monkeysession):
     filename = tmp_path_factory.mktemp("config") / "config.yml"
     filename.write_text("""
@@ -24,3 +24,4 @@ hosts:
   uri: test:///default
     """)
     monkeysession.setattr(Config, "filename", filename)
+    

@@ -6,7 +6,7 @@ from vcloud.cli import main
 
 class TestInstances:
 
-    def test_list(self):
+    def test_list(self, config_file):
         """
         Checks that we can list instances
         """
@@ -32,7 +32,7 @@ class TestInstances:
             "Error: Unknown instance test_does_not_exist\n"
         )),
     ])
-    def test_start(self, vmname, expected_return_code, expected_stdout):
+    def test_start(self, vmname, expected_return_code, expected_stdout, config_file):
         """
         Checks that we can start an instance
         """
@@ -52,7 +52,7 @@ class TestInstances:
             "Error: Unknown instance test_does_not_exist\n"
         )),
     ])
-    def test_stop(self, vmname, expected_return_code, expected_stdout):
+    def test_stop(self, vmname, expected_return_code, expected_stdout, config_file):
         """
         Checks that we can start an instance
         """
