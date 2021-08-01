@@ -10,12 +10,13 @@ logger = logging.getLogger(__name__)
 
 class Config:
 
+    filename = os.path.expanduser("~/.config/vcloud/vcloud.conf")
+
     def __init__(self):
-        self.filename = os.path.expanduser("~/.config/vcloud/vcloud.conf")
         self.load(self.filename)
         self.set_defaults()
         
-    def __del__(self):
+    def __del__(self): 
         self.save(self.filename)
 
     def load(self, filename):

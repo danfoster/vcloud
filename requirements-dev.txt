@@ -1,2 +1,5 @@
 pylint
 wheel
+pytest
+types-PyYAML
+pytest-cov
