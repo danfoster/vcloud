@@ -8,6 +8,7 @@ from .host import Host
 
 logger = logging.getLogger(__name__)
 
+
 class Config:
 
     filename = os.path.expanduser("~/.config/vcloud/vcloud.conf")
@@ -15,8 +16,8 @@ class Config:
     def __init__(self):
         self.load(self.filename)
         self.set_defaults()
-        
-    def __del__(self): 
+
+    def __del__(self):
         self.save(self.filename)
 
     def load(self, filename):
@@ -29,7 +30,7 @@ class Config:
             pathlib.Path(dirname).mkdir(parents=True, exist_ok=True)
             pathlib.Path(filename).touch()
             self.config = {}
-        
+
         with open(filename) as file:
             self.config = yaml.load(file, Loader=yaml.FullLoader) or {}
 
@@ -43,7 +44,6 @@ class Config:
 
         with open(filename, 'w') as file:
             yaml.dump(self.config, file)
-
 
     def get(self, key):
         return self.config[key]
@@ -65,7 +65,7 @@ class Config:
         Adds a new host to the config
         """
         hosts = self.get("hosts")
-        existing_names = [ x["name"] for x in hosts ]
+        existing_names = [x["name"] for x in hosts]
         if name in existing_names:
             logger.error("%s already exists", name)
             sys.exit(1)
@@ -99,8 +99,9 @@ class Config:
             logger.error("No active host set, set with: vcloud hosts set")
             sys.exit(1)
 
-  
-        host_names =  [ x["name"] for x in self.get("hosts") ]
+        host_names = [x["name"] for x in self.get("hosts")]
         if active_host not in host_names:
-            logger.error(f"No host named \"{active_host}\" found in the configuration")
+            logger.error(
+                f"No host named \"{active_host}\" found in the configuration"
+            )
             sys.exit(1)

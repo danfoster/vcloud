@@ -5,9 +5,11 @@ from .. import outputters
 
 logger = logging.getLogger(__name__)
 
+
 @click.group()
 def hosts():
     pass
+
 
 @hosts.command()
 @click.pass_context
@@ -17,7 +19,8 @@ def list(ctx):
     """
     config = ctx.obj['config']
     hosts = config.get_hosts()
-    outputters.table([ x.dump() for x in hosts])
+    outputters.table([x.dump() for x in hosts])
+
 
 @hosts.command()
 @click.pass_context
@@ -39,7 +42,7 @@ def set(ctx, name):
     Sets the active host
     """
     config = ctx.obj['config']
-    host_names =  [ x["name"] for x in config.get("hosts") ]
+    host_names = [x["name"] for x in config.get("hosts")]
     if name not in host_names:
         logger.error("%s is not a defined host", name)
         return False

@@ -6,7 +6,6 @@ from .instance import Instance
 logger = logging.getLogger(__name__)
 
 
-
 class Host:
 
     def __init__(self, name, uri):
@@ -19,18 +18,16 @@ class Host:
         Builds a dict of instances in k/v of "name": "Instance"
         """
         domains = self.conn.listAllDomains()
-        if domains == None:
+        if domains is None:
             logger.error("Failed to get a list of VMs")
             return []
-        
-    
+
         instances = {}
         for domain in domains:
             instance = Instance(domain)
             instances[instance.name] = instance
-        
-        return instances
 
+        return instances
 
     def get_instances(self):
         """
@@ -54,4 +51,3 @@ class Host:
             "name": self.name,
             "uri": self.uri,
         }
-        

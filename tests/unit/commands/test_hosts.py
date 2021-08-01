@@ -8,7 +8,7 @@ class TestConfig:
 
     def test_list(self):
         runner = CliRunner()
-     
+
         result = runner.invoke(main, ["hosts", "list"])
         assert result.exit_code == 0
         assert result.output == """name    uri
