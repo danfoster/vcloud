@@ -19,7 +19,7 @@ jobs:
         python-version: 3.9
     - name: Install dependencies
       run: |
-        apt-get install -y libvirt-dev
+        sudo apt-get install -y libvirt-dev
         python -m pip install --upgrade pip
         pip install -r requirements-dev.txt
         pip install -e .
