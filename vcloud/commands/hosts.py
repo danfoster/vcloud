@@ -44,7 +44,6 @@ def set(ctx, name):
     config = ctx.obj['config']
     host_names = [x["name"] for x in config.get("hosts")]
     if name not in host_names:
-        logger.error("%s is not a defined host", name)
-        return False
+        raise click.BadArgumentUsage("Unknown Host {}".format(name))
     config.set("active_host", name)
     logger.info("Set active host to: %s", name)

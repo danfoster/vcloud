@@ -1,2 +1,2 @@
 unittest:
-	pytest --cov=vcloud tests/unit/
+	pytest --cov-report term-missing --cov=vcloud tests/unit/

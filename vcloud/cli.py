@@ -13,5 +13,6 @@ def main(ctx):
     ctx.ensure_object(dict)
     ctx.obj['config'] = Config()
 
+
 main.add_command(instances.instances)
 main.add_command(hosts.hosts)
