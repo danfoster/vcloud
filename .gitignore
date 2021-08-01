@@ -2,3 +2,4 @@
 *.egg-info
 .vscode
 __pycache__
+.coverage
