@@ -1,5 +1,5 @@
 pylint
 wheel
-pytest
+flake8
 types-PyYAML
 pytest-cov
