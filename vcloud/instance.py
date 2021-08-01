@@ -37,6 +37,27 @@ class Instance:
     def cpus(self):
         return self.domain.vcpusFlags()
 
+
+    def start(self):
+        """
+        Starts an instance
+        """
+        print(f"Starting {self.name}...")
+        try:
+            self.domain.create()
+        except libvirt.libvirtError as error:
+            print(error)
+
+    def stop(self):
+        """
+        Stops and instance
+        """
+        print(f"Stopping {self.name}...")
+        try:
+            self.domain.shutdown()
+        except libvirt.libvirtError as error:
+            print(error)
+
     def dump(self):
         return {
             "Name": self.name,

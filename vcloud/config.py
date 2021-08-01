@@ -95,7 +95,7 @@ class Config:
         try:
             active_host = self.get("active_host")
         except KeyError:
-            logger.error("No active host set, set with: vcloud host set")
+            logger.error("No active host set, set with: vcloud hosts set")
             sys.exit(1)
 
   
