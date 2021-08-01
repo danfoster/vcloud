@@ -12,7 +12,6 @@ def monkeysession(request):
     from _pytest.monkeypatch import MonkeyPatch
     mpatch = MonkeyPatch()
     yield mpatch
-    mpatch.undo()
 
 
 @pytest.fixture(scope="session", autouse=True)

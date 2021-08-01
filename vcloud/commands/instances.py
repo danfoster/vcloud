@@ -41,7 +41,9 @@ def start(ctx, instance_name):
     instance = host.get_instance(instance_name)
     if instance is None:
         # No instance found by that name
-        return False
+        raise click.BadArgumentUsage(
+            "Unknown instance {}".format(instance_name)
+        )
     instance.start()
 
 
@@ -58,5 +60,7 @@ def stop(ctx, instance_name):
     instance = host.get_instance(instance_name)
     if instance is None:
         # No instance found by that name
-        return False
+        raise click.BadArgumentUsage(
+            "Unknown instance {}".format(instance_name)
+        )
     instance.stop()

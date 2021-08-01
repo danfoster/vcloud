@@ -5,7 +5,7 @@ import pytest
 from vcloud.cli import main
 
 
-class TestConfig:
+class TestHosts:
 
     def test_list(self):
         """
